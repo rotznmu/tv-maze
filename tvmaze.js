@@ -52,6 +52,7 @@ function populateShows(shows) {
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${show.summary}</p>
+             <button class="btn btn-primary get-episodes">Episodes</button>
            </div>
          </div>
        </div>
@@ -116,3 +117,9 @@ function populateEpisodes(episodes) {
 	}
 	episodesArea.style.display = '';
 }
+
+let btnClick = document.querySelectorAll('.get-episodes');
+btnClick.addEventListener('click', function(e) {
+	e.preventDefault();
+	console.log(e.target);
+});
