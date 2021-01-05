@@ -91,31 +91,26 @@ async function getEpisodes(id) {
 	//       http://api.tvmaze.com/shows/SHOW-ID-HERE/episodes
 	// TODO: return array-of-episode-info, as described in docstring above
 	const response = await axios.get(`http://api.tvmaze.com/shows/${id}/episodes`);
-	const episodes = response.data.map((episode) => {
-		return [
-			{
-				id: episode.id,
-				name: episode.name,
-				season: episode.season,
-				number: episode.number
-			}
-		];
-	});
-	console.log(episodes[0].name);
+	const episodes = response.data.map((episode) => ({
+		id: episode.id,
+		name: episode.name,
+		season: episode.season,
+		number: episode.number
+	}));
 	return episodes;
 }
 
 function populateEpisodes(episodes) {
-	const episodesArea = document.querySelector('#episodes-list');
-	while (episodesArea.firstChild) {
-		episodesArea.removeChild(episodesArea.firstChild);
+	const episodesList = document.querySelector('#episodes-list');
+	while (episodesList.firstChild) {
+		episodesList.removeChild(episodesList.firstChild);
 	}
 	for (let episode of episodes) {
 		const newLiItem = document.createElement('LI');
 		newLiItem.innerText = `${episode.name} (season ${episode.season}, episode ${episode.number})`;
-		episodesArea.append(newLiItem);
-		console.log(episodesArea);
+		episodesList.append(newLiItem);
 	}
+	const episodesArea = document.querySelector('#episodes-area');
 	episodesArea.style.display = '';
 }
 
